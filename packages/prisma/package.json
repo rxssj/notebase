@@ -1,0 +1,25 @@
+{
+  "name": "@notebase/prisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./index.ts",
+  "scripts": {
+    "db:generate": "prisma generate --schema=./schema/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema=./schema/schema.prisma",
+    "db:deploy": "prisma migrate deploy --schema=./schema/schema.prisma"
+  },
+  "exports": {
+    ".": "./index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "prisma": "^6.18.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.18.0",
+    "@prisma/extension-accelerate": "^2.0.2"
+  }
+}
