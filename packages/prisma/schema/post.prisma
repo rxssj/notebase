@@ -1,0 +1,37 @@
+enum PostUserRole {
+    owner // full control
+    editor // can edit the post (is like a owner)
+    viewer // can view the post
+}
+
+model Post {
+    id      String  @id @default(cuid())
+    name    String?
+    slug    String  @unique
+    content Json?
+
+    users    PostUsers[]
+    folderId String?
+
+    folder Folder? @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+    @@index(folderId)
+    @@index(slug)
+}
+
+model PostUsers {
+    id     String       @id @default(cuid())
+    postId String
+    userId String
+    role   PostUserRole @default(viewer)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([postId, userId])
+    @@index(userId)
+    @@index(postId)
+}
